@@ -1,9 +1,11 @@
 from sklearn.base import BaseEstimator, TransformerMixin
-
+import imblearn
+from imblearn.over_sampling import SMOTE
+import pandas as pd
 
 # All sklearn Transforms must have the `transform` and `fit` methods
 class DropColumns(BaseEstimator, TransformerMixin):
-    def __init__(self, columns):
+    def _init_(self, columns):
         self.columns = columns
 
     def fit(self, X, y=None):
@@ -16,7 +18,7 @@ class DropColumns(BaseEstimator, TransformerMixin):
         return data.drop(labels=self.columns, axis='columns')
     
 class SetIndex(BaseEstimator, TransformerMixin):
-    def __init__(self, columns):
+    def _init_(self, columns):
         self.columns = columns
 
     def fit(self, X, y=None):
@@ -30,10 +32,12 @@ class SetIndex(BaseEstimator, TransformerMixin):
     
    
 class SmoteResample(object):
-    def __init__(self):
+    def _init_(self):
         pass
 
     def fit(self, X, y):
         X_resampled, y_resampled = SMOTE().fit_resample(X, y)
+
         X_resampled = pd.DataFrame(X_resampled, columns=X.columns)
+        
         return X_resampled, y_resampled
