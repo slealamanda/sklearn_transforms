@@ -5,7 +5,7 @@ import pandas as pd
 
 # All sklearn Transforms must have the `transform` and `fit` methods
 class DropColumns(BaseEstimator, TransformerMixin):
-    def _init_(self, columns):
+    def __init__(self, columns):
         self.columns = columns
 
     def fit(self, X, y=None):
@@ -18,7 +18,7 @@ class DropColumns(BaseEstimator, TransformerMixin):
         return data.drop(labels=self.columns, axis='columns')
     
 class SetIndex(BaseEstimator, TransformerMixin):
-    def _init_(self, columns):
+    def __init__(self, columns):
         self.columns = columns
 
     def fit(self, X, y=None):
@@ -32,7 +32,7 @@ class SetIndex(BaseEstimator, TransformerMixin):
     
    
 class SmoteResample(object):
-    def _init_(self):
+    def __init__(self):
         pass
 
     def fit(self, X, y):
